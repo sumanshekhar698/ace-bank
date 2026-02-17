@@ -1,0 +1,120 @@
+/* Auth Specific Layout */
+.auth-wrapper {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.auth-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.auth-card {
+    background: var(--bg-color);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+body.dark .auth-card {
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-control {
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.form-control input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: transparent;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+/* Validation States */
+.form-control.success input { border-color: #2ecc71; }
+.form-control.error input { border-color: #e74c3c; }
+
+.status-icon {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    visibility: hidden;
+}
+
+.form-control.success .status-icon { color: #2ecc71; visibility: visible; }
+.form-control.error .error-msg { color: #e74c3c; display: block; }
+
+.error-msg {
+    font-size: 0.75rem;
+    display: none;
+    margin-top: 4px;
+}
+
+.full-width { width: 100%; margin-top: 1rem; cursor: pointer; border: none; }
+
+
+
+
+
+
+
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--light-text);
+}
+
+.remember-me input {
+    width: auto;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.auth-header p {
+    color: var(--light-text);
+    margin-bottom: 2rem;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}

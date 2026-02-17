@@ -1,0 +1,254 @@
+/* --- 1. Design Tokens (Variables) --- */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-color: #ffffff;
+    --text-color: #1f2937;
+    --light-text: #6b7280;
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Overrides */
+body.dark {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --light-text: #94a3b8;
+    --header-bg: rgba(15, 23, 42, 0.85);
+}
+
+/* --- 2. Global Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.4s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* --- 3. Header & Navigation --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+}
+
+.logo-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo-text span {
+    color: var(--primary);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+nav a:not(.btn-primary):hover {
+    color: var(--primary);
+}
+
+.nav-toggle {
+    display: none;
+}
+
+/* --- 4. Hero Section --- */
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center; /* This keeps both sides centered vertically */
+    padding: 6rem 0;
+    gap: 4rem;
+}
+
+.badge {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.hero-text h1 {
+    font-size: 4.5rem;
+    line-height: 1.05;
+    margin: 1.5rem 0;
+    font-weight: 800;
+}
+
+.highlight {
+    color: var(--primary);
+}
+
+.hero-text p {
+    font-size: 1.25rem;
+    color: var(--light-text);
+    margin-bottom: 3rem;
+    max-width: 500px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* --- 5. Buttons & Interactions --- */
+.btn-primary {
+    background: var(--primary);
+    color: #fff !important;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.12));
+}
+
+/* --- 6. Animations --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Updated selector to target the image inside the figure */
+.float-img img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+    animation: floating 5s ease-in-out infinite;
+    display: block; /* Prevents tiny alignment gaps */
+}
+
+/* --- Theme Toggle Switch Styling --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.slider i {
+    color: #f1c40f;
+    font-size: 14px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    z-index: 2;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+
+
+
