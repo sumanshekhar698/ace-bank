@@ -5,52 +5,117 @@ const aadhar = document.getElementById('aadharNumber');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 
-// Utility function to show error
+// --- 1. Utility Functions ---
+
 function setError(input, message) {
     const formControl = input.parentElement;
     const small = formControl.querySelector('small');
     formControl.className = 'form-control error';
-    small.innerText = message;
+    if (small) small.innerText = message;
 }
 
-// Utility function to show success
 function setSuccess(input) {
     const formControl = input.parentElement;
     formControl.className = 'form-control success';
 }
 
-// Validation Logic
-function checkInputs() {
-    let isValid = true;
-
-    if (firstName.value.trim() === '') {
-        setError(firstName, 'First name is required');
-        isValid = false;
-    } else setSuccess(firstName);
-
-    if (aadhar.value.length !== 12 || isNaN(aadhar.value)) {
-        setError(aadhar, 'Enter a valid 12-digit Aadhar');
-        isValid = false;
-    } else setSuccess(aadhar);
-
-    if (password.value.length < 10) {
-        setError(password, 'Min. 10 characters required');
-        isValid = false;
-    } else setSuccess(password);
-
-    return isValid;
+function setNeutral(input) {
+    const formControl = input.parentElement;
+    formControl.className = 'form-control';
 }
 
-// Event Listener for Real-time feedback
+// --- 2. Validation Core Logic ---
+
+function validateInput(input) {
+    const value = input.value.trim();
+
+    // Check First Name
+    if (input === firstName) {
+        if (value === '') {
+            setError(firstName, 'First name is required');
+            return false;
+        } else {
+            setSuccess(firstName);
+            return true;
+        }
+    }
+
+    // Check Last Name
+    if (input === lastName) {
+        if (value === '') {
+            setError(lastName, 'Last name is required');
+            return false;
+        } else {
+            setSuccess(lastName);
+            return true;
+        }
+    }
+
+    // Check Aadhar (Must be exactly 12 digits)
+    if (input === aadhar) {
+        if (value.length !== 12 || isNaN(value)) {
+            setError(aadhar, 'Enter a valid 12-digit Aadhar');
+            return false;
+        } else {
+            setSuccess(aadhar);
+            return true;
+        }
+    }
+
+    // Check Password (Min 10 characters)
+    if (input === password) {
+        if (value.length < 10) {
+            setError(password, 'Min. 10 characters required');
+            return false;
+        } else {
+            setSuccess(password);
+            return true;
+        }
+    }
+
+    // Email Validation (Simple check)
+    if (input === email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(value)) {
+            setError(email, 'Enter a valid email address');
+            return false;
+        } else {
+            setSuccess(email);
+            return true;
+        }
+    }
+
+    // Default for fields like Last Name (if optional)
+    if (value !== "") {
+        setSuccess(input);
+        return true;
+    }
+
+    return true;
+}
+
+// --- 3. Event Listeners ---
+
+// Real-time feedback as the user types
 [firstName, lastName, aadhar, email, password].forEach(input => {
     input.addEventListener('input', () => {
-        if (input.value.trim() !== "") setSuccess(input);
+        if (input.value.trim() === "") {
+            setNeutral(input); // Remove red/green if they clear the field
+        } else {
+            validateInput(input); // Validate the specific rule
+        }
     });
 });
 
 // Final Form Submit Check
 form.addEventListener('submit', (e) => {
-    if (!checkInputs()) {
-        e.preventDefault(); // Stop form from sending if invalid
+    let isFirstNameValid = validateInput(firstName);
+    let isLastNameValid = validateInput(lastName);
+    let isAadharValid = validateInput(aadhar);
+    let isEmailValid = validateInput(email);
+    let isPasswordValid = validateInput(password);
+
+    if (!(isFirstNameValid && isLastNameValid && isAadharValid && isEmailValid && isPasswordValid)) {
+        e.preventDefault(); // Stop submission if any field fails
     }
 });

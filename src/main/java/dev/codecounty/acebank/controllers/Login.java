@@ -68,7 +68,10 @@ public class Login extends HttpServlet {
                 response.addCookie(userCookie);
 
                 log.info("User " + accountNo + " logged in successfully.");
-                request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+//                request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+
+                // REDIRECT: Tells browser "Go to /home using GET"
+                response.sendRedirect(request.getContextPath() + "/home");
             } else {
                 log.warning("Authentication failed for account: " + accStr);
                 response.sendRedirect("LoginFail.jsp");

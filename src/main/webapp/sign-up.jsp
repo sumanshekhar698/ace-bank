@@ -30,7 +30,7 @@
                 <ul>
                     <div class="theme-switch-wrapper">
                         <label class="theme-switch" for="theme-checkbox">
-                            <input type="checkbox" id="theme-checkbox" />
+                            <input type="checkbox" id="theme-checkbox"/>
                             <div class="slider round">
                                 <i class="ri-sun-line"></i>
                                 <i class="ri-moon-line"></i>

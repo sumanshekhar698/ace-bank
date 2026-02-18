@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace Bank | Banking Made Easy</title>
+    <title>Ace Bank</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
 
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 
@@ -24,7 +25,8 @@
                 <li>
                     <div class="theme-switch-wrapper">
                         <label class="theme-switch" for="theme-checkbox">
-                            <input type="checkbox" id="theme-checkbox" ${cookie.theme_pref.value == 'dark' ? 'checked' : ''} />
+                            <input type="checkbox"
+                                   id="theme-checkbox" ${cookie.theme_pref.value == 'dark' ? 'checked' : ''} />
                             <div class="slider round">
                                 <i class="ri-sun-line icon-sun"></i>
                                 <i class="ri-moon-line icon-moon"></i>
@@ -43,7 +45,8 @@
         <section class="hero-text fade-in-up">
             <span class="badge">Trusted by 2M+ Users</span>
             <h1>Banking Made <span class="highlight">Easy</span></h1>
-            <p>Join over 40,000 people who open an Ace Bank account every week. Manage, spend, and save your money with ease.</p>
+            <p>Join over 40,000 people who open an Ace Bank account every week. Manage, spend, and save your money with
+                ease.</p>
 
             <div class="hero-btns">
                 <a href="${pageContext.request.contextPath}/sign-up.jsp" class="btn-primary">Open Account</a>

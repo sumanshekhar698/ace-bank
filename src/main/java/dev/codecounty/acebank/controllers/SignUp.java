@@ -55,12 +55,15 @@ public class SignUp extends HttpServlet {
                 HttpSession session = request.getSession();
 
                 // 4. Set Session Attributes
+                session.setAttribute("accountNumber", details.accountNumber());
                 session.setAttribute("firstName", details.firstName());
                 session.setAttribute("email", details.email());
                 session.setAttribute("balance", details.balance());
                 session.setAttribute("transactionDetailsList", new ArrayList<>());
 
-                response.sendRedirect("Home.jsp");
+//                request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+// REDIRECT: Tells browser "Go to /home using GET"
+                response.sendRedirect(request.getContextPath() + "/home");
             } else {
                 response.sendRedirect("GenericError.html");
             }

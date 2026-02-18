@@ -1,4 +1,4 @@
-package dev.codecounty.acebank.controllers;
+package dev.codecounty.acebank.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpFilter;
