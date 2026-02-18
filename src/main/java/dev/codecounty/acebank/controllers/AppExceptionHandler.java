@@ -28,25 +28,37 @@ public class AppExceptionHandler extends HttpServlet {
         processError(request, response);
     }
 
-    private void processError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processError(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Retrieve error details from the request attributes
         Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
         String requestUri = (String) request.getAttribute("jakarta.servlet.error.request_uri");
         Throwable throwable = (Throwable) request.getAttribute("jakarta.servlet.error.exception");
 
+        // Null-safety: Default values if the handler is accessed directly or attributes are missing
+        if (statusCode == null) statusCode = 0;
+        if (requestUri == null) requestUri = "Unknown Location";
+
         String title;
         String message;
 
+        // Categorize the error
         if (statusCode == 404) {
             title = "Page Not Found";
             message = "The URL <strong>" + requestUri + "</strong> does not exist on our server.";
-            log.warning("404 Error: " + requestUri);
+            log.warning("404 Error at: " + requestUri);
         } else if (statusCode == 500) {
-            title = "Server Error";
+            title = "Internal Server Error";
             message = "Our banking systems are experiencing a temporary hiccup. Our engineers have been notified.";
-            log.severe("500 Error: " + (throwable != null ? throwable.getMessage() : "Unknown"));
+            log.severe("500 Error: " + (throwable != null ? throwable.getMessage() : "No exception trace"));
+        } else if (statusCode == 403) {
+            title = "Access Denied";
+            message = "You do not have permission to view this resource.";
         } else {
             title = "Unexpected Error";
-            message = "An unexpected error occurred. Please try again later.";
+            message = "An unexpected error occurred (" + statusCode + "). Please try again later.";
+            log.info("Generic Error Code: " + statusCode + " for URI: " + requestUri);
         }
 
         // Pass data to the JSP for rendering
@@ -54,6 +66,9 @@ public class AppExceptionHandler extends HttpServlet {
         request.setAttribute("errorMessage", message);
         request.setAttribute("errorCode", statusCode);
 
+        // Forward to the error page
+        // Note: Use "/error.jsp" if it's in the webapp root,
+        // or "/WEB-INF/views/error.jsp" if it's hidden there.
         request.getRequestDispatcher("error.jsp").forward(request, response);
     }
 }
